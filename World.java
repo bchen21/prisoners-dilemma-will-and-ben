@@ -22,7 +22,7 @@ public class World {
 	}
 	public void creaturesInteract() {
 		for(Creature x: creatureList) {
-			x.findMyNeighbors();
+			x.findMyNeighbors(x.getMyLocation());
 			x.interact();
 		}
 	}
