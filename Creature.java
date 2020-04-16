@@ -17,11 +17,21 @@ public abstract class Creature {
 		this.myLocation = myLocation;
 		this.myWorld = myWorld;
 		findMyNeighbors(myLocation);
+		willChange = false;
 	}
 
+	public boolean willIChange() {
+		return willChange;
+	}
+	
+	public Color getMyColor() {
+		return myColor;
+	}
+	
 	public Location getMyLocation() {
 		return myLocation;
 	}
+	
 	public void setMyLocation(Location myLocation) {
 		this.myLocation = myLocation;
 	}
@@ -50,11 +60,6 @@ public abstract class Creature {
 		
 	}
 	
-	public void interact() {
-		int bestScoreIndex = -1;
-		int bestScore = -1;
-		for(Creature neighbor : myNeighbors) {
-			if(neighbor.)
-		}
-	}
+	public abstract void interact();
+	
 }
