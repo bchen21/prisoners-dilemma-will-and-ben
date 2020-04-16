@@ -34,7 +34,7 @@ public class WorldController extends GraphicsProgram {
 		drawWorld();
 		for(int i = 0; i < 3;i++){
 			theWorld.letTimePass();
-			for(Creature x: theWorld.creatureList) {
+			for(Creature x: theWorld.getCreatureList()) {
 				statusUpdate();
 			}
 			pause(500);
@@ -66,17 +66,17 @@ public class WorldController extends GraphicsProgram {
 		}
 	}
 	public void statusUpdate() { // remove and add cooperator/defector
-		for(int i = 0; i < theWorld.creatureList.size(); i++) {
-			Creature x = theWorld.creatureList.get(i);
+		for(int i = 0; i < theWorld.getCreatureList().size(); i++) {
+			Creature x = theWorld.getCreatureList().get(i);
 			if(x.willIChange()) {
 				if(x.getMyColor() == Color.GREEN) {
-					theWorld.creatureList.remove(x);
+					theWorld.getCreatureList().remove(x);
 					Location prevLocation = x.getMyLocation();
-					theWorld.creatureList.add(new(Defector(prevLocation, theWorld ));
+					theWorld.getCreatureList().add(new Defector(prevLocation, theWorld));
 				} else {
-					theWorld.creatureList.remove(x);
+					theWorld.getCreatureList().remove(x);
 					Location prevLocation = x.getMyLocation();
-					theWorld.creatureList.add(new(Cooperator(prevLocation, theWorld ));
+					theWorld.getCreatureList().add(new Cooperator(prevLocation, theWorld));
 				}
 			}
 		}
