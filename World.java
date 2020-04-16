@@ -21,7 +21,10 @@ public class World {
 		creaturesInteract();	
 	}
 	public void creaturesInteract() {
-		
+		for(Creature x: creatureList) {
+			x.findMyNeighbors();
+			x.interact();
+		}
 	}
 	public int getWidth() {
 		return width;
