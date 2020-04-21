@@ -22,9 +22,17 @@ public class WorldController extends GraphicsProgram {
 	
 	public void setUpWorld(){
 		theWorld = new World(20,20);
-		for(int i = 0; i < 20; i++) {
+		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 20; j++) {
-				theWorld.getCreatureList().add( new Cooperator( new Location(i,j), theWorld ));
+				theWorld.getCreatureList().add(new Cooperator( new Location(i,j), theWorld));
+			}
+		}
+		for(int i = 0; i < 20; i++) {
+			theWorld.getCreatureList().add(new Defector( new Location(10,i), theWorld));
+		}
+		for(int i = 11; i < 20; i++) {
+			for(int j = 0; j < 20; j++) {
+				theWorld.getCreatureList().add(new Cooperator( new Location(i,j), theWorld));
 			}
 		}
 		theWorldCanvas = this.getGCanvas();
@@ -72,11 +80,11 @@ public class WorldController extends GraphicsProgram {
 				if(x.getMyColor() == Color.GREEN) {
 					theWorld.getCreatureList().remove(x);
 					Location prevLocation = x.getMyLocation();
-					theWorld.getCreatureList().add(new Defector(prevLocation, theWorld));
+					theWorld.getCreatureList().add(new Defector(prevLocation, theWorld ));
 				} else {
 					theWorld.getCreatureList().remove(x);
 					Location prevLocation = x.getMyLocation();
-					theWorld.getCreatureList().add(new Cooperator(prevLocation, theWorld));
+					theWorld.getCreatureList().add(new Cooperator(prevLocation, theWorld ));
 				}
 			}
 		}
