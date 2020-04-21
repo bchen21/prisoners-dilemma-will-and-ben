@@ -11,13 +11,14 @@ public abstract class Creature {
 	protected World myWorld;
 	protected Location myLocation;
 	protected boolean willChange;
+	protected int myScore;
 	
 	public Creature(Location myLocation, World myWorld) {
-		super();
 		this.myLocation = myLocation;
 		this.myWorld = myWorld;
-		findMyNeighbors(myLocation);
 		willChange = false;
+		myScore = 0;
+		myNeighbors = new ArrayList<Creature>();
 	}
 
 	public boolean willIChange() {
@@ -28,8 +29,16 @@ public abstract class Creature {
 		return myColor;
 	}
 	
+	public World getMyWorld() {
+		return myWorld;
+	}
+	
 	public Location getMyLocation() {
 		return myLocation;
+	}
+	
+	public int getMyScore() {
+		return myScore;
 	}
 	
 	public void setMyLocation(Location myLocation) {
@@ -37,29 +46,29 @@ public abstract class Creature {
 	}
 	
 	public void findMyNeighbors(Location myLocation) {
+//		Address edge cases
+		int creatureNum = 0;
+		for(Creature x : myWorld.getCreatureList()) {
+			creatureNum++;
+		}
+		System.out.print(creatureNum);
 		int x = myLocation.getX();
 		int y = myLocation.getY();
-		Creature north = null;
-		Creature east = null;
-		Creature south = null;
-		Creature west = null;
 		for(Creature z : myWorld.getCreatureList()) {
 			if(z.getMyLocation().getX() == x && z.getMyLocation().getY() == y - 1)
-				north = z;
+				myNeighbors.add(z);
 			else if(z.getMyLocation().getX() == x && z.getMyLocation().getY() == y + 1)
-				south = z;
+				myNeighbors.add(z);
 			else if(z.getMyLocation().getX() == x+1 && z.getMyLocation().getY() == y)
-				east = z;
+				myNeighbors.add(z);
 			else if(z.getMyLocation().getX() == x-1 && z.getMyLocation().getY() == y)
-				west = z;
+				myNeighbors.add(z);
 		}
-		myNeighbors.add(north);
-		myNeighbors.add(east);
-		myNeighbors.add(south);
-		myNeighbors.add(west);
-		
 	}
 	
 	public abstract void interact();
+	
+	public abstract void seeWhoIsBest();
+	
 	
 }
