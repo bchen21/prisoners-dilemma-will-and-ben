@@ -20,5 +20,20 @@ public class Defector extends Creature{
 		}
 	}
 	
+	public void seeWhoIsBest() {
+		int highScore = myScore;
+		int bestNeighborIndex = -1;
+		for(int i = 0; i < myNeighbors.size(); i++) {
+			if(myNeighbors.get(i).getMyScore() > highScore) {
+				bestNeighborIndex = i;
+				highScore = myNeighbors.get(i).getMyScore();
+			}
+		}
+		if(bestNeighborIndex != -1) {
+			if(myNeighbors.get(bestNeighborIndex).getMyColor() == Color.GREEN) {
+				willChange = true;
+			}
+		}
+	}
 		
 }
