@@ -8,8 +8,10 @@ public class WorldController extends GraphicsProgram {
 
 	private World theWorld;
 	private GCanvas theWorldCanvas;
-	public static final int APPLICATION_WIDTH = 200;
-	public static final int APPLICATION_HEIGHT = 200;
+	public static final int APPLICATION_WIDTH = 210;
+	public static final int APPLICATION_HEIGHT = 210;
+	
+	RandomGenerator rgen = new RandomGenerator();
 	
 	public void run(){	
 		setUpWorld();
@@ -21,31 +23,38 @@ public class WorldController extends GraphicsProgram {
 	}
 	
 	public void setUpWorld(){
-		theWorld = new World(20,20);
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 20; j++) {
+		theWorld = new World(21,21);
+		for(int i = 0; i < 21; i++) {
+			for(int j = 0; j < 21; j++) {
+//				if(rgen.nextBoolean()) {
+//					theWorld.getCreatureList().add(new Cooperator( new Location(i,j), theWorld));
+//				} else {
+//					theWorld.getCreatureList().add(new Defector( new Location(i,j), theWorld));
+//				}
 				theWorld.getCreatureList().add(new Cooperator( new Location(i,j), theWorld));
 			}
 		}
-		for(int i = 0; i < 20; i++) {
-			theWorld.getCreatureList().add(new Defector( new Location(10,i), theWorld));
-		}
-		for(int i = 11; i < 20; i++) {
-			for(int j = 0; j < 20; j++) {
-				theWorld.getCreatureList().add(new Cooperator( new Location(i,j), theWorld));
-			}
-		}
+//		for(int i = 0; i < 21; i++) {
+//			theWorld.getCreatureList().add(new Defector( new Location(10,j), theWorld));
+//		}
+		theWorld.getCreatureList().remove(220);
+		theWorld.getCreatureList().add(new Defector( new Location(10,10), theWorld));
+//		for(int i = 11; i < 21; i++) {
+//			for(int j = 0; j < 21; j++) {
+//				theWorld.getCreatureList().add(new Cooperator( new Location(i,j), theWorld));
+//			}
+//		}
 		theWorldCanvas = this.getGCanvas();
 	}
 	
 	public void runWorld(){
 		drawWorld();
-		for(int i = 0; i < 3;i++){
+		while(true) {
 			theWorld.letTimePass();
 			for(Creature x: theWorld.getCreatureList()) {
 				statusUpdate();
 			}
-			pause(500);
+			waitForClick();
 			drawWorld();
 		}
 	}	
@@ -86,6 +95,8 @@ public class WorldController extends GraphicsProgram {
 					Location prevLocation = x.getMyLocation();
 					theWorld.getCreatureList().add(new Cooperator(prevLocation, theWorld ));
 				}
+			} else {
+				x.getMyNeighbors().clear();
 			}
 		}
 	}
