@@ -41,6 +41,17 @@ public abstract class Creature {
 		return myScore;
 	}
 	
+	public ArrayList<Creature> getMyNeighbors() {
+		return myNeighbors;
+	}
+	
+	public void setMyScore(int newScore) {
+		System.out.println("new: " + newScore);
+		System.out.println("old: " + myScore);
+		myScore = newScore;
+		System.out.println("new myscore: " + myScore);
+	}
+	
 	public void setMyLocation(Location myLocation) {
 		this.myLocation = myLocation;
 	}
@@ -51,7 +62,6 @@ public abstract class Creature {
 		for(Creature x : myWorld.getCreatureList()) {
 			creatureNum++;
 		}
-		System.out.print(creatureNum);
 		int x = myLocation.getX();
 		int y = myLocation.getY();
 		for(Creature z : myWorld.getCreatureList()) {
